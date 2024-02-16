@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Module for Base class"""
 from json import dumps, loads
-import csv
 
 
 class Base:
@@ -24,3 +23,10 @@ class Base:
             return "[]"
         else:
             return dumps(list_dictionaries)
+@classmethod
+   def save_to_file(cls, list_objs):
+        '''Saves jsonified object to file.'''
+        if list_objs is not None:
+            list_objs = [o.to_dictionary() for o in list_objs]
+        with open("{}.json".format(cls.__name__), "w", encoding="utf-8") as f:
+            f.write(cls.to_json_string(list_objs))
